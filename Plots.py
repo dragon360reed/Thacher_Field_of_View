@@ -80,10 +80,10 @@ for p in pairs:
 
 #Clusters:
 clusters = [i for i in range(len(Final_df_avcut_hstcut)) if i not in np.unique(singles) and i not in np.unique(triangles) and i not in np.unique(pairs)]
-#for i in clusters:
-#    plt.annotate(str(i),(Final_df_avcut_hstcut['RA'][i],Final_df_avcut_hstcut['Dec'][i]))
+for i in clusters:
+    plt.annotate(str(i),(Final_df_avcut_hstcut['RA'][i],Final_df_avcut_hstcut['Dec'][i]))
 
-manual = [[190,208,418],[978,259],[923,530,205],[236,552],[542,924,316],[332,659,924,316]]
+manual = [[190,208,418,978],[978,259],[923,530,205],[236,552],[542,924,316],[332,659,924,316]]
 for m in manual:
     array = np.array([[Final_df_avcut_hstcut['RA'][i],Final_df_avcut_hstcut['Dec'][i]] for i in m])
     cra, cdec = centroid(array)
@@ -93,9 +93,10 @@ for m in manual:
     Pointings['Galaxies'].append([Final_df_avcut_hstcut['GWGC_name'][i] for i in m])
     #ax.add_patch(rect)
 
-for g in np.unique(within_field):
-    plt.annotate(Final_df_avcut_hstcut['GWGC_name'][g],(Final_df_avcut_hstcut['RA'][g],Final_df_avcut_hstcut['Dec'][g]))
-
+#for g in np.unique(within_field):
+#    plt.annotate(Final_df_avcut_hstcut['GWGC_name'][g],(Final_df_avcut_hstcut['RA'][g],Final_df_avcut_hstcut['Dec'][g]))
+Pointings = pd.DataFrame.from_dict(Pointings)
+Pointings.to_csv("Pointings.csv")
 
 plt.ion()
 fig = plt.figure()
